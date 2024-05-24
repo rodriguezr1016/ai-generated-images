@@ -3,6 +3,8 @@ import {useNavigate} from 'react-router-dom'
 import {preview} from '../assets'
 import {getRandomPrompt} from '../utils'
 import {FormField, Loader} from '../components'
+import { download } from '../assets'
+import { downloadImage } from '../utils'
 const CreatePost = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -10,14 +12,15 @@ const CreatePost = () => {
         prompt: '',
         photo: '',
     });
+   
     const [generatingImg, setGeneratingImg] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [generated, setgenerated] = useState(true)
+    const [generated, setgenerated] = useState(false)
     const handleSubmit = async (e) => {
       e.preventDefault();
+      setLoading(true);
   
       if (form.prompt && form.photo) {
-        setLoading(true);
         try {
           const response = await fetch('http://localhost:8080/api/v1/post', {
             method: 'POST',
@@ -59,6 +62,7 @@ const CreatePost = () => {
             alert(err);
           } finally {
             setGeneratingImg(false);
+            setgenerated(true)
           }
         } else {
           alert('Please provide proper prompt');
@@ -98,7 +102,24 @@ const CreatePost = () => {
                 handleSurpriseMe={handleSurpriseMe}
                 />
                 <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
-                    {form.photo ? (<img src={form.photo} alt={form.prompt} className='w-full h-full object-contain'/>) : (<img src={preview} alt='preview' className='w-9/12 h-9/12 object-contain opacity-40'/>)}
+                    {form.photo ? (
+                      <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
+    <img
+      className="w-full h-auto object-cover rounded-xl"
+      src={form.photo}
+      alt={form.prompt}
+    />
+    <div className="group-hover:flex flex-col max-h-[94.5%] absolute bottom-0 left-0 right-0 m-2 p-4 rounded-md">
+      
+
+      <div className="mt-5 flex justify-between items-center gap-2">
+        
+        <button type="button" onClick={() => downloadImage( form.photo)} className="outline-none bg-transparent border-none">
+          <img src={download} alt="download" className="w-6 h-6 object-contain invert" />
+        </button>
+      </div>
+    </div>
+  </div>) : (<img src={preview} alt='preview' className='w-9/12 h-9/12 object-contain opacity-40'/>)}
                     {generatingImg && ( 
                     <div className='absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg'>
                         <Loader />
@@ -114,7 +135,7 @@ const CreatePost = () => {
             {generated ? (<div className="mt-10">
                 <p className='mt-2 text-[#666e75] text-[14px]'>Once you've created your image share it with the community</p>
                 <button className="mt-3 text-white bg-[#6369ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-                    {loading ? 'Sharing' : 'Share'}
+                    {loading ? 'Sharing...' : 'Share'}
                 </button>
             </div>) : (<></>)}
 

@@ -4,13 +4,13 @@ import {logo} from '../assets'
 import {profile} from '../assets'
 import { MyProvider, useMyContext } from '../App';
 const Header = () => {
-  const [showAlert, setShowAlert] = React.useState(true)
-  useEffect(() => {
-    if (showAlert) {
-      alert('Try logging in to save posts and more!');
-      setShowAlert(false); // Prevent the alert from showing again
-    }
-  }, []);
+  // const [showAlert, setShowAlert] = React.useState(true)
+  // useEffect(() => {
+  //   if (showAlert) {
+  //     alert('Try logging in to save posts and more!');
+  //     setShowAlert(false); // Prevent the alert from showing again
+  //   }
+  // }, []);
     const {loggedIn} = useMyContext()
     // setLoggedIn(true)
   return (
