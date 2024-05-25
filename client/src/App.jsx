@@ -10,6 +10,12 @@ const MyContext = createContext();
 
 export const MyProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setLoggedIn(true); // Set logged-in state based on the token
+    }
+  }, []);
 
   return (
     <MyContext.Provider value={{ loggedIn, setLoggedIn }}>

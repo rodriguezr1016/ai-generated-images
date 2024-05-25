@@ -6,6 +6,7 @@ import connectDB from './mongodb/connect.js';
 import postRoutes from './routes/postRoute.js';
 import dalleRoutes from './routes/dalleRoute.js';
 import User from './mongodb/models/user.js';
+import jwt from 'jsonwebtoken'
 
 dotenv.config();
 
@@ -58,7 +59,12 @@ app.post('/api/login',async(req, res) =>{
       const isValidPassword = await checkPassword(req.body.password, user.password);
       if(!isValidPassword) return res.status(400).send('Invalid email or password.');
       if( user && isValidPassword){
-        res.json(user)
+        const token = jwt.sign(
+          {userId: user.id, username: user.username},
+          process.env.JWT_SECRET,
+          {expiresIn: '1h'}
+        );
+        res.json({token})
       }
 
 

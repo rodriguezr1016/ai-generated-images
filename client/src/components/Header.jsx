@@ -11,8 +11,11 @@ const Header = () => {
   //     setShowAlert(false); // Prevent the alert from showing again
   //   }
   // }, []);
-    const {loggedIn} = useMyContext()
-    // setLoggedIn(true)
+    const {loggedIn, setLoggedIn} = useMyContext()
+    const handleLogout = () => {
+      localStorage.removeItem('token'); // Remove the token
+      setLoggedIn(false); // Update the logged-in state
+    };
   return (
     <header className='w-full flex justify-between items-center bg-white sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]'>
         <Link to={'/'}>
@@ -21,12 +24,15 @@ const Header = () => {
         <div className='flex gap-5 items-center'>
         <Link className='group' to={loggedIn ? '/saved-posts': '/login'}>
           <img src={profile} alt="" /> 
-          {loggedIn ? ( <div className='group-hover:flex relative -mx-1.5 text-xs text-[#222328] hidden'>
+          {loggedIn ? (
+            <div className='group-hover:flex relative -mx-1.5 text-xs text-[#222328] hidden'>
             Profile
-          </div>): (<div className='group-hover:flex relative -mx-1 text-xs text-[#222328] hidden'>
+          </div>
+          ): (<div className='group-hover:flex relative -mx-1 text-xs text-[#222328] hidden'>
             Login
           </div>)}
         </Link>
+        {loggedIn ? (<button className='font-inter font-medium bg-green-700 text-white px-4 py-2 rounded-md' onClick={handleLogout}>Logout</button>) : (<></>)}
         <Link to={'/create-post'} className='font-inter font-medium bg-[#6469ff] text-white px-4 py-2 rounded-md'>
           Create
         </Link>

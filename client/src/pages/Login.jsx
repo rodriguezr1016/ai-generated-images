@@ -1,9 +1,10 @@
-import React, {useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import { MyProvider, useMyContext } from '../App';
 import { Link, useNavigate} from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate()
     const {setLoggedIn, loggedIn} = useMyContext();
+    const [token, setToken] = useState(null)
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -19,7 +20,10 @@ const Login = () => {
       });
   
       if (response.ok) {
-        const userData = await response.json();
+       
+        const { token } = await response.json();
+  localStorage.setItem('token', token); // Store the token
+  setToken(token);
         setLoggedIn(true);
         alert('Logged In')
         navigate('/')
