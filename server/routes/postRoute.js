@@ -2,7 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import {v2 as cloudinary} from 'cloudinary';
 import Post from '../mongodb/models/post.js';
-
+import authMiddleware from '../middleware/auth.js'
 dotenv.config();
 
 const router = express.Router();
@@ -21,14 +21,26 @@ router.route('/').get(async (req, res) => {
         res.status(500).json({success: false, message:error})
     }
 })
-router.route('/').post(async (req, res) => {
+
+router.use(authMiddleware);
+router.route('/:userId').get( authMiddleware, async (req, res) => {
     try {
-        const {name, prompt, photo} = req.body;
+        const posts = await Post.find({author: req.params.userId})
+        res.status(200).json({success: true, data:posts})
+    } catch (error) {
+        res.status(500).json({success: false, message:error})
+    }
+})
+router.route('/').post(authMiddleware, async (req, res) => {
+    try {
+        const {name, prompt, photo, userId} = req.body;
+        
     const photoURL = await cloudinary.uploader.upload(photo);
     const newPost = await Post.create({
         name,
         prompt,
         photo: photoURL.url,
+        author: userId,
     })
     res.status(201).json({success: true, data: newPost});
     } catch (error) {

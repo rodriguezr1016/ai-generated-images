@@ -5,6 +5,7 @@ import {getRandomPrompt} from '../utils'
 import {FormField, Loader} from '../components'
 import { download } from '../assets'
 import { downloadImage } from '../utils'
+import * as jwtDecode from 'jwt-decode'
 const CreatePost = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -19,6 +20,9 @@ const CreatePost = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
+      const token = localStorage.getItem('token');
+      const decodedToken = jwtDecode.jwtDecode(token)
+        const userId = decodedToken.userId;
   
       if (form.prompt && form.photo) {
         try {
@@ -26,8 +30,9 @@ const CreatePost = () => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`,
             },
-            body: JSON.stringify({ ...form }),
+            body: JSON.stringify({ ...form, userId }),
           });
   
           await response.json();

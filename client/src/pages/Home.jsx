@@ -1,8 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import {Loader, Card, FormField} from '../components'
+const handleLike = async (postId) => {
+  console.log(postId)
+}
 const RenderCards = ({data, title}) => {
   if(data?.length > 0){
-  return data.map((post) => <Card key ={post._id} {...post}/>)
+  return data.map((post) => <div key={post._id}>
+    <Card {...post}>
+    <button onClick={()=> handleLike(post._id)}>Like</button>
+    </Card>
+    
+  </div>)
   }
   return(
     <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">{title}</h2>

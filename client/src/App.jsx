@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import CreatePost from './pages/CreatePost'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import SavedPosts from './pages/SavedPosts'
+import Profile from './pages/Profile'
 import { Header } from './components'
 const MyContext = createContext();
 
@@ -37,7 +37,7 @@ const App = () => {
           <Route path='/create-post' element={<CreatePost/>}/>
           <Route path='/login' element={<Login />}/>
           <Route path='/register' element={<Register/>}/>
-          <Route path='/saved-posts' element={<SavedPosts/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Routes>
       </main>
     </BrowserRouter>

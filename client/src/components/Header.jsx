@@ -22,7 +22,7 @@ const Header = () => {
           <img src={logo} alt="logo" className='w-28 object-contain'/>
         </Link>
         <div className='flex gap-5 items-center'>
-        <Link className='group' to={loggedIn ? '/saved-posts': '/login'}>
+        <Link className='group' to={loggedIn ? '/profile': '/login'}>
           <img src={profile} alt="" /> 
           {loggedIn ? (
             <div className='group-hover:flex relative -mx-1.5 text-xs text-[#222328] hidden'>

@@ -64,6 +64,7 @@ app.post('/api/login',async(req, res) =>{
           process.env.JWT_SECRET,
           {expiresIn: '1h'}
         );
+
         res.json({token})
       }
 
@@ -72,7 +73,6 @@ app.post('/api/login',async(req, res) =>{
       res.status(500).send(error.message);
   }
 });
-
 const startServer = async () => {
   try {
     connectDB(process.env.MONGODB_URL);
