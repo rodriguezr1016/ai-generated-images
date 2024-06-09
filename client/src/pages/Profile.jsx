@@ -3,8 +3,12 @@ import * as jwtDecode from 'jwt-decode';
 import { MyProvider, useMyContext } from '../App';
 import { Card } from '../components';
 const Profile = () => {
-    const [posts, setPosts] = useState(null)
-    const [userId, setUserId] = useState(null)
+    const [posts, setPosts] = useState(null);
+    const [likes, setLikes] = useState(null);
+    const [postsLoading, setPostsLoading] = useState(true); // Loading state for posts
+  const [likesLoading, setLikesLoading] = useState(true); // Loading state for likes
+
+    const [userId, setUserId] = useState(null);
     const token = localStorage.getItem('token');
     const RenderCards = ({data, title}) => {
       if(data?.length > 0){
@@ -15,56 +19,89 @@ const Profile = () => {
       )
         
     };
-    useEffect(() => {
-     if(token) {
-      try {
-        const decodedToken = jwtDecode.jwtDecode(token)
-        const userId = decodedToken.userId;
-        setUserId(userId)
-        console.log(userId)
-      } catch (error) {
-        console.log('FU',error)
-      }
-     }
-    }, [])
     const fetchUserPosts = async () => {
-      const decodedToken = jwtDecode.jwtDecode(token)
-      const userId = decodedToken.userId;
-      const response = await fetch(`http://localhost:8080/api/v1/post/${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        // console.log(data.data)
-        const array = [{id: '1234', name: 'rene'}]
-        setPosts(data.data);
-        // console.log(data.data)
-        console.log(posts)
-      } else {
-        console.error('failed to fetch posts')
+      try {
+        const decodedToken = jwtDecode.jwtDecode(token);
+        const userId = decodedToken.userId;
+  
+        const response = await fetch(`http://localhost:8080/api/v1/post/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          setPosts(result.data);
+        } else {
+          console.error('Failed to fetch posts');
+        }
+      } catch (error) {
+        console.error('Error fetching user posts:', error);
+      } finally {
+        setPostsLoading(false); // Set loading to false once data is fetched
       }
     };
-
-   useEffect(() => {
-     fetchUserPosts()
-   }, [])
+  
+    const fetchUserLikes = async () => {
+      try {
+        const decodedToken = jwtDecode.jwtDecode(token);
+        const userId = decodedToken.userId;
+  
+        const response = await fetch(`http://localhost:8080/api/v1/post/${userId}/likes`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          }
+        });
+  
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Fetched Likes:', result); // Log the fetched data
+          setLikes(result.data); // Directly setting the likes data
+        } else {
+          console.error('Failed to fetch likes');
+        }
+      } catch (error) {
+        console.error('Error fetching user likes:', error);
+      } finally {
+        setLikesLoading(false); // Set loading to false once data is fetched
+      }
+    };
+  
+    useEffect(() => {
+      fetchUserPosts();
+      fetchUserLikes();
+    }, []);
+  
+   if(!likesLoading)(
+    console.log(likes)
+   )
+  
    
-    
+    // console.log(likes)
 
 
 
   return (
-    <div>
+    <div className=''>
     {/* Other profile content */}
-    <h2>Your Posts</h2>
-    <div>
+    <h1 className="font-extrabold text-[#222328] text-[32px]">Your Posts</h1>
+    <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3 mb-20">
     <RenderCards 
        data={posts}
        title="No Posts Found"/>
     </div>
+    <h1 className="font-extrabold text-[#222328] text-[32px]">Your Likes</h1>
+    {likesLoading ? (
+        <p>Loading likes...</p>
+      ) : (<div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3 mb-20"> <RenderCards 
+      data={likes}
+      title="No Posts Found"/>
+      </div>
+      )}
+
     
   </div>
     

@@ -1,8 +1,20 @@
-import React from 'react';
+import {React, useState} from 'react';
 
-import { download } from '../assets';
+import { download, bookmark } from '../assets';
 import { downloadImage } from '../utils';
 
+const handleLike = async (postId) => {
+  const token = localStorage.getItem('token');
+
+  const response = await fetch(`http://localhost:8080/api/v1/post/${postId}/like`,{
+    method: 'POST',
+    headers:{
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    },
+  })
+  const data = await response.json();
+  alert(data.message)
+};
 const Card = ({ _id, name, prompt, photo }) => (
   <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
     <img
@@ -18,9 +30,13 @@ const Card = ({ _id, name, prompt, photo }) => (
           <div className="w-7 h-7 rounded-full object-cover bg-green-700 flex justify-center items-center text-white text-xs font-bold">{name[0]}</div>
           <p className="text-white text-sm">{name}</p>
         </div>
+        <div className='flex gap-1'>
+        <button className='text-white' onClick={()=> handleLike(_id)}><img src={bookmark} className='  invert'alt='favorite'/></button>
         <button type="button" onClick={() => downloadImage(_id, photo)} className="outline-none bg-transparent border-none">
           <img src={download} alt="download" className="w-6 h-6 object-contain invert" />
         </button>
+
+        </div>
       </div>
     </div>
   </div>
