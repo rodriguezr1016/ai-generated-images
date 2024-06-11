@@ -41,17 +41,13 @@ const Login = () => {
         {/* Email and Password fields */}
         <input className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4649ff] focus:border-[#4649ff] outline-none block w-3/4 p-3' type="email" name="email" placeholder='email'required />
         <input placeholder='password'className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4649ff] focus:border-[#4649ff] outline-none block w-3/4 p-3'type="password" name="password" required />
-        {/* <button onClick={()=>{
-            if(loggedIn){
-                setLoggedIn(false)
-            }else {
-                setLoggedIn(true)
-            }
-        }}>Click Me</button> */}
+        <div className="w-full text-center block">
         <Link to='/register'>
             <p>Create an account?</p>
         </Link>
-      <button className='mt-3 text-white bg-[#6369ff] font-medium rounded-md text-sm w-3/4 sm:w-auto px-5 py-2.5 text-center'type="submit">Log In</button>
+
+        </div>
+      <button className='mt-3 text-white block bg-[#6369ff] font-medium rounded-md text-sm w-3/4 sm:w-auto px-5 py-2.5 text-center'type="submit">Log In</button>
       </form>
       </div>
     );

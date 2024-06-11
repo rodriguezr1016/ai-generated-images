@@ -35,8 +35,10 @@ const Register = () => {
       <input className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4649ff] focus:border-[#4649ff] outline-none block w-3/4 p-3'id="email" placeholder='email' type="email" name="email" required />
 
       <input className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4649ff] focus:border-[#4649ff] outline-none block w-3/4 p-3' id="password" type="password" placeholder='password' name="password" required />
+      <div className='flex w-full justify-center'>
+      <button className='mt-3 text-white bg-green-700 font-medium rounded-md text-sm w-3/4 block sm:w-auto px-5 py-2.5 text-center'type="submit">Register</button>
 
-      <button className='mt-3 text-white bg-green-700 font-medium rounded-md text-sm w-3/4 sm:w-auto px-5 py-2.5 text-center'type="submit">Register</button>
+      </div>
     </form>
     </div>
   )
