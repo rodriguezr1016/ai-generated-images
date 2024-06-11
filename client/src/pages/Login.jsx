@@ -8,7 +8,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      const response = await fetch('http://localhost:8080/api/login', {
+      const response = await fetch('https://ai-generated-images-xqv7.onrender.com/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

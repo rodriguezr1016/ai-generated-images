@@ -1,19 +1,19 @@
 {
   "name": "ai-generated-images",
   "version": "1.0.0",
-  "main": "server/index.js",
-  "scripts": {
-    "start": "node server/index.js",
-    "build": "cd client && npm run build",
-    "install": "cd server && npm i && cd ../client && npm i",
-    "heroku-postbuild": "npm run install && npm run build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "description": "",
+  "main": "server/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js"
+  },
   "dependencies": {
-    "concurrently": "^5.1.0"
+    "express": "^4.17.1",
+    "dotenv": "^8.2.0",
+    "cloudinary": "^1.22.0",
+    "mongoose": "^5.9.10",
+    "nodemon": "^2.0.20"
   }
 }
+
 

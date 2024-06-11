@@ -24,7 +24,7 @@ const Profile = () => {
         const decodedToken = jwtDecode.jwtDecode(token);
         const userId = decodedToken.userId;
   
-        const response = await fetch(`http://localhost:8080/api/v1/post/${userId}`, {
+        const response = await fetch(`https://ai-generated-images-xqv7.onrender.com/api/v1/post/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const Profile = () => {
         const decodedToken = jwtDecode.jwtDecode(token);
         const userId = decodedToken.userId;
   
-        const response = await fetch(`http://localhost:8080/api/v1/post/${userId}/likes`, {
+        const response = await fetch(`https://ai-generated-images-xqv7.onrender.com/api/v1/post/${userId}/likes`, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',

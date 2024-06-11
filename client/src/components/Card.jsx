@@ -6,7 +6,7 @@ import { downloadImage } from '../utils';
 const handleLike = async (postId) => {
   const token = localStorage.getItem('token');
 
-  const response = await fetch(`http://localhost:8080/api/v1/post/${postId}/like`,{
+  const response = await fetch(`https://ai-generated-images-xqv7.onrender.com/api/v1/post/${postId}/like`,{
     method: 'POST',
     headers:{
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
