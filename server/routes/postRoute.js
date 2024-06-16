@@ -47,6 +47,18 @@ router.route('/').post(authMiddleware, async (req, res) => {
         res.status(500).json({success: false, message: error})
     }
 })
+router.route('/:postId/delete').delete(authMiddleware, async (req, res)=> {
+    try {
+        const {postId} = req.params
+        const deletedPost = await Post.findByIdAndDelete({post: postId})
+        if(!deletedPost) {
+            res.status(404).json({message: 'Post not found'})
+        }
+        res.status(200).json({message: 'Post deleted successfully'})
+    } catch (error) {
+        res.status(500).json({message: error})
+    }
+});
 router.route('/:postId/like').post(authMiddleware,async (req, res) => {
     const {userId} = req.user;
     const {postId} = req.params;

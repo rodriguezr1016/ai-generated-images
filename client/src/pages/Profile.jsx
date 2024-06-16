@@ -2,6 +2,7 @@ import {useEffect, React, useState} from 'react';
 import * as jwtDecode from 'jwt-decode';
 import { MyProvider, useMyContext } from '../App';
 import { Card } from '../components';
+import { PostCard } from '../components';
 const Profile = () => {
     const [posts, setPosts] = useState(null);
     const [likes, setLikes] = useState(null);
@@ -16,6 +17,16 @@ const Profile = () => {
       }
       return(
         <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">{title}</h2>
+      )
+        
+    };
+    const PostRenderCards = ({data, title}) => {
+      if(data?.length > 0){
+      return data.map((post) => <PostCard key ={post._id} {...post}/>)
+      }
+      return(
+        <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">{title}
+</h2>
       )
         
     };
@@ -89,7 +100,7 @@ const Profile = () => {
     {/* Other profile content */}
     <h1 className="font-extrabold text-[#222328] text-[32px]">Your Posts</h1>
     <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3 mb-20">
-    <RenderCards 
+    <PostRenderCards 
        data={posts}
        title="No Posts Found"/>
     </div>

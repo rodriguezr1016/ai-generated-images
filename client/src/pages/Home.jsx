@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import {Loader, Card, FormField} from '../components'
+import {Loader, FormField} from '../components'
+import Card from '../components/Card'
 const handleLike = async (postId) => {
   console.log(postId)
 }
