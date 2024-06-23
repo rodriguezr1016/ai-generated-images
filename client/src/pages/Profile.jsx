@@ -4,6 +4,7 @@ import { MyProvider, useMyContext } from '../App';
 import { Card } from '../components';
 import { PostCard } from '../components';
 const Profile = () => {
+ 
     const [posts, setPosts] = useState(null);
     const [likes, setLikes] = useState(null);
     const [postsLoading, setPostsLoading] = useState(true); // Loading state for posts

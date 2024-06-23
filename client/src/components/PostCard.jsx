@@ -3,16 +3,21 @@ import {React, useState} from 'react';
 import { download, bookmark, trash } from '../assets';
 import { downloadImage } from '../utils';
 
-const deletePost = async (postId)=> {
+const deletePost = async (postId, prompt)=> {
     const token = localStorage.getItem('token');
-console.log(postId)
-const response = await fetch(`https://ai-generated-images-xqv7.onrender.com/api/v1/post/${postId}/delete`, {
+console.log(prompt)
+const response = await fetch(`https://ai-generated-images-xqv7.onrender.com/api/v1/post/delete/${postId}`, {
     method: 'DELETE',
     headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
     },
+    
+    
 })
-
+// if(response.ok){
+//     alert('Post Deleted')
+// }
+console.log(postId, prompt)
 }
 const handleLike = async (postId) => {
   const token = localStorage.getItem('token');
@@ -47,7 +52,7 @@ const PostCard = ({ _id, name, prompt, photo }) => (
             <img src={download} alt="download" className="w-6 h-6 object-contain invert" />
           </button>
           <button>
-            <img onClick={()=> deletePost(_id)} className='invert w-5 h-5'src={trash} alt="delete" />
+            <img onClick={()=> deletePost(_id, prompt)} className='invert w-5 h-5'src={trash} alt="delete" />
           </button>
   
           </div>
