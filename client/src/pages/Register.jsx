@@ -19,8 +19,8 @@ const Register = () => {
         });
         if(response.ok) {
             const userData = await response.json();
-            setLoggedIn(true);
-            // navigate('/')
+            
+            navigate('/login')
 
         } else {
             console.error('Registration failed')
