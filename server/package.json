@@ -20,6 +20,6 @@
     "mongodb": "^6.6.1",
     "mongoose": "^6.8.2",
     "nodemon": "^2.0.20",
-    "openai": "^3.1.0"
+    "openai": "^4.52.0"
   }
 }
