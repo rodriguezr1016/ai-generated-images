@@ -26,6 +26,16 @@ export const MyProvider = ({ children }) => {
 
 export const useMyContext = () => useContext(MyContext);
 const App = () => {
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(!token){
+      alert("Try logging in to like and create posts :)")
+
+    }
+  
+    
+  }, [])
+  
   const [loggedIn, setLoggedIn] = useState(true)
   return (
     <MyProvider>

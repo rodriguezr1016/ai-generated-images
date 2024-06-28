@@ -2,7 +2,6 @@ import {React, useState} from 'react';
 
 import { download, bookmark, trash } from '../assets';
 import { downloadImage } from '../utils';
-
 const handleLike = async (postId) => {
   const token = localStorage.getItem('token');
 
@@ -15,7 +14,10 @@ const handleLike = async (postId) => {
   const data = await response.json();
   alert(data.message)
 };
+const token = localStorage.getItem('token');
+
 const Card = ({ _id, name, prompt, photo }) => (
+  
   <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
     <img
       className="w-full h-auto object-cover rounded-xl"
@@ -31,7 +33,8 @@ const Card = ({ _id, name, prompt, photo }) => (
           <p className="text-white text-sm">{name}</p>
         </div>
         <div className='flex gap-1'>
-        <button className='text-white' onClick={()=> handleLike(_id)}><img src={bookmark} className='  invert'alt='favorite'/></button>
+          {token ? (<button className='text-white' onClick={()=> handleLike(_id)}><img src={bookmark} className='  invert'alt='favorite'/></button>):(<></>)}
+        
         <button type="button" onClick={() => downloadImage(_id, photo)} className="outline-none bg-transparent border-none">
           <img src={download} alt="download" className="w-6 h-6 object-contain invert" />
         </button>

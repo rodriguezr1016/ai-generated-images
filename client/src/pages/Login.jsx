@@ -26,6 +26,7 @@ const Login = () => {
   setToken(token);
         setLoggedIn(true);
         alert('Logged In')
+        window.location.reload
         navigate('/')
 
       } else {

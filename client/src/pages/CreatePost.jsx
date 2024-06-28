@@ -13,7 +13,8 @@ const CreatePost = () => {
         prompt: '',
         photo: '',
     });
-   
+    const token = localStorage.getItem('token');
+
     const [generatingImg, setGeneratingImg] = useState(false);
     const [loading, setLoading] = useState(false);
     const [generated, setgenerated] = useState(false)
@@ -137,7 +138,7 @@ const CreatePost = () => {
                 </button>
             </div>
 
-            {generated ? (<div className="mt-10">
+            {generated && token ? (<div className="mt-10">
                 <p className='mt-2 text-[#666e75] text-[14px]'>Once you've created your image share it with the community</p>
                 <button className="mt-3 text-white bg-[#6369ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                     {loading ? 'Sharing...' : 'Share'}
